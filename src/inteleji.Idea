@@ -1,0 +1,145 @@
+CREATE TABLE person
+(
+    id   SERIAL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    age  INT
+);
+CREATE TABLE car
+(
+    id    SERIAL PRIMARY KEY,
+    model VARCHAR(50) NOT NULL,
+    price INT,
+    year  INT         NOT NULL
+);
+CREATE TABLE animal
+(
+    id   SERIAL PRIMARY KEY,
+    name VARCHAR     NOT NULL,
+    age  INT,
+    food VARCHAR(70) NOT NULL
+);
+CREATE TABLE laptop
+(
+    id     SERIAL PRIMARY KEY,
+    model  VARCHAR(50) NOT NULL,
+    year   INT,
+    memory INT
+);
+CREATE TABLE programmer
+(
+    id        SERIAL PRIMARY KEY,
+    name      VARCHAR(50) NOT NULL,
+    status    VARCHAR(70) NOT NULL,
+    salary    INT,
+    laptop_id INT REFERENCES laptop (id)
+);
+CREATE TABLE currency_exchange
+(
+    id       SERIAL PRIMARY KEY,
+    currency VARCHAR(50) NOT NULL,
+    password VARCHAR(70) UNIQUE,
+    budget   INT
+);
+CREATE TABLE business_mens
+(
+    id                   SERIAL PRIMARY KEY,
+    name                 VARCHAR(50) NOT NULL,
+    age                  INT,
+    email                VARCHAR UNIQUE,
+    currency_exchange_id INT REFERENCES currency_exchange (id)
+);
+CREATE TABLE city
+(
+    id         SERIAL PRIMARY KEY,
+    "name"     VARCHAR(50) UNIQUE,
+    population INT
+);
+CREATE TABLE country
+(
+    id        SERIAL PRIMARY KEY,
+    "name"    VARCHAR(20) NOT NULL UNIQUE,
+    area      INT,
+    city_name VARCHAR(50),
+    FOREIGN KEY (city_name) REFERENCES city ("name")
+);
+CREATE TABLE weapon
+  (
+      id      SERIAL PRIMARY KEY,
+      name    VARCHAR(50) NOT NULL UNIQUE,
+      SPEED   INT,
+      country VARCHAR(50) REFERENCES country (name)
+  );
+
+
+INSERT INTO person(name, age)
+VALUES ('Ilim', 19),
+       ('Nuradil', 18);
+
+INSERT INTO car(model, price, year)
+VALUES ('BMW', 10200, 2003),
+       ('HONDA', 5000, 2011);
+
+INSERT INTO animal (name, age, food)
+VALUES ('Cat', 2, 'meat'),
+       ('Horse', 7, 'grass'),
+       ('Lion', 4, 'Meat');
+
+INSERT INTO laptop(model, year, memory)
+VALUES ('macbook', 2020, 1000),
+       ('lenovo', 2021, 256),
+       ('HP', 2022, 512);
+
+INSERT INTO programmer(name, status, salary, laptop_id)
+VALUES ('Alibek', 'Senior', 2500, 1),
+       ('Adil', 'Middle', 2000, 3),
+       ('Iskhak', 'junior', 1000, 2);
+
+INSERT INTO currency_exchange(currency, password, budget)
+VALUES ('Best', '1234', 100000),
+       ('Dollar', 'hello2023', 200000),
+       ('Som', 'kg1993', 150000),
+       ('PeakSoft', 'java-8', 300000);
+
+INSERT INTO business_mens(name, age, email, currency_exchange_id)
+VALUES ('Omurbek', 30, 'omka@gmail.com', 4),
+       ('Janarbek', 25, 'jaku@gmail.com', 2),
+       ('Baiel', 50, 'bake@gmail.com', 3),
+       ('Dastan', 23, 'dastan@gmail.com', 1);
+
+INSERT INTO city("name", population)
+VALUES ('Bishkek', 10300),
+       ('Moscow', 40000),
+       ('London', 30000),
+       ('New-York', 50000);
+
+INSERT INTO country(name, area, city_name)
+VALUES ('Kyrgyzstan', 10000, 'Bishkek'),
+       ('Russia', 20000, 'Moscow'),
+       ('England', 60000, 'London'),
+       ('USA', 50000, 'New-York');
+
+INSERT INTO weapon(name, SPEED, country)
+VALUES ('aka47', 2000, 'Russia'),
+       ('cobra', 1500, 'England');
+
+
+SELECT *
+FROM person;
+SELECT *
+FROM car;
+SELECT *
+FROM animal;
+SELECT *
+FROM laptop;
+SELECT *
+FROM programmer;
+SELECT *
+FROM currency_exchange;
+SELECT *
+FROM business_mens;
+SELECT *
+FROM city;
+SELECT *
+FROM country;
+SELECT *
+FROM weapon;

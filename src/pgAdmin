@@ -1,0 +1,55 @@
+CREATE TABLE product(
+    id SERIAL PRIMARY KEY,
+	name VARCHAR(50) UNIQUE,
+	price INT
+);
+
+CREATE TABLE shop (
+    id SERIAL PRIMARY KEY,
+	name VARCHAR(50) UNIQUE,
+	bankAccount INT,
+	product_id INT REFERENCES product(id)
+);
+
+CREATE TABLE footboll_club(
+    id SERIAL PRIMARY KEY,
+	name VARCHAR(30) UNIQUE,
+    country VARCHAR(30)
+);
+
+CREATE TABLE footboll_player(
+    id SERIAL PRIMARY KEY,
+	sur_name VARCHAR(30),
+	salary INT,
+	footboll_club_name VARCHAR(30) REFERENCES footboll_club(name)
+);
+
+INSERT INTO product(name,price)
+VALUES('bread',20),
+      ('milk',50),
+	  ('cola',70),
+	  ('cake',200);
+
+INSERT INTO shop(name,bankAccount,product_id)
+VALUES('Frunze',2000,1),
+      ('Globus',3000,3),
+	  ('Alma',1000,4),
+	  ('Narodniy',2500,2);
+
+INSERT INTO footboll_club(name,country)
+VALUES('Real Madrid','Spain'),
+      ('Barcelona','Spain'),
+	  ('Liverpool','England'),
+	  ('PSG','French');
+
+INSERT INTO footboll_player(sur_name,salary,footboll_club_name)
+VALUES('Salah',1000,'Liverpool'),
+      ('Benzema',2000,'Real Madrid'),
+	  ('Lewandowski',2000,'Barcelona'),
+	  ('Mbappe',3000,'PSG');
+
+
+SELECT * FROM product;
+SELECT * FROM shop;
+SELECT * FROM footboll_club;
+SELECT * FROM footboll_player;
